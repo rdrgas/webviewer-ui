@@ -13,3 +13,20 @@
     }
   }
 }
+
+.export-dropdown-menu {
+  position: absolute;
+  top: 95px;
+  right: 47px;
+}
+
+.export-dropdown-item {
+  width: 100%;
+  padding: 8px 16px;
+  color: var(--secondary-button-text);
+  text-decoration: unset;
+}
+
+.export-dropdown-item:hover {
+  background: #f0f0f0;
+}

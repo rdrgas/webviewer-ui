@@ -85,9 +85,6 @@ function NoteHeader(props) {
       <div className={authorAndDateClass}>
         <div className="author-and-overflow">
           <div className="author-and-time">
-            <div className='author'>
-              {renderAuthorName(annotation)}
-            </div>
             <div className="date-and-num-replies">
               <div className="date-and-time">
                 {date ? dayjs(date).locale(language).format(noteDateFormat) : t('option.notesPanel.noteContent.noDate')}

@@ -19,6 +19,7 @@
     "ungroup": "Ungroup",
     "download": "Download",
     "edit": "Edit",
+    "export": "Export",
     "extract": "Extract",
     "enterFullscreen": "Full screen",
     "exitFullscreen": "Exit full screen",
@@ -529,6 +530,16 @@
     },
     "lineStyleOptions": {
       "title": "Style"
+    },
+    "exportOptions": {
+      "excel": {
+        "label": "Excel",
+        "tooltip": "Export bookmarks in csv format"
+      },
+      "word": {
+        "label": "Word",
+        "tooltip": "Export bookmarks in docx format"
+      }
     }
   },
   "warning": {
