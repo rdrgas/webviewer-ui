@@ -134,10 +134,10 @@ const BookmarksPanel = () => {
             </button>
             {isDropdownOpen && (
                 <div className="FlyoutMenu export-dropdown-menu" ref={dropdownRef}>
-                    <a id="bookmarks-export-excel" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.excel.tooltip')}>
+                    <a id="bookmarks-export-excel" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.excel.tooltip.bookmarks')}>
                         {t('option.exportOptions.excel.label')}
                     </a>
-                    <a id="bookmarks-export-word" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.word.tooltip')}>
+                    <a id="bookmarks-export-word" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.word.tooltip.bookmarks')}>
                         {t('option.exportOptions.word.label')}
                     </a>
                 </div>

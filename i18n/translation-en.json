@@ -534,11 +534,17 @@
     "exportOptions": {
       "excel": {
         "label": "Excel",
-        "tooltip": "Export bookmarks in csv format"
+        "tooltip": {
+          "bookmarks": "Export bookmarks in csv format",
+          "notes": "Export notes in csv format"
+        }
       },
       "word": {
         "label": "Word",
-        "tooltip": "Export bookmarks in docx format"
+        "tooltip": {
+          "bookmarks": "Export bookmarks in docx format",
+          "notes": "Export notes in docx format"
+        }
       }
     }
   },
