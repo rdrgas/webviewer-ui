@@ -119,8 +119,8 @@ export default {
           type: 'toggleElementButton',
           dataElement: 'menuButton',
           element: 'menuOverlay',
-          img: 'icon-header-settings-line',
-          title: 'component.menuOverlay',
+          img: 'assets/icons/icon-header-export.svg',
+          title: 'component.menuExport',
           hidden: ['small-mobile'],
         },
         {
@@ -154,8 +154,8 @@ export default {
           type: 'toggleElementButton',
           dataElement: 'menuButton',
           element: 'menuOverlay',
-          img: 'icon-header-settings-line',
-          title: 'component.menuOverlay',
+          img: 'assets/icons/icon-header-export.svg',
+          title: 'component.menuExport',
         },
         { type: 'spacer' },
         {
@@ -652,6 +652,8 @@ export default {
       { dataElement: 'freeTextToolButton' },
     ],
     menuOverlay: [
+      { dataElement: 'endNote' },
+      { dataElement: 'refWorks' },
       { dataElement: 'filePickerButton' },
       { dataElement: 'fullscreenButton' },
       { dataElement: 'downloadButton' },

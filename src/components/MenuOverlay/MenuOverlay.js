@@ -88,8 +88,32 @@ function MenuOverlay() {
   };
 
   return (
-    <FlyoutMenu menu="menuOverlay" trigger="menuButton" onClose={undefined} ariaLabel={t('component.menuOverlay')}>
+    <FlyoutMenu menu="menuOverlay" trigger="menuButton" onClose={undefined} ariaLabel={t('component.menuExport')}>
       <InitialMenuOverLayItem>
+        <CustomElement
+            dataElement="endNote"
+            className="linkOption"
+            render = {() => {
+                const link = document.createElement('a');
+                link.textContent = "EndNote";
+                link.id = "endNoteId";
+                link.className = "Button ActionButton row";
+                link.style.textDecoration = "unset";
+                return link;
+            }}
+        />
+        <CustomElement
+            dataElement="refWorks"
+            className="linkOption"
+            render = {() => {
+                const link = document.createElement('a');
+                link.textContent = "RefWorks";
+                link.id = "refWorksId";
+                link.className = "Button ActionButton row";
+                link.style.textDecoration = "unset";
+                return link;
+            }}
+        />
         <ActionButton
           dataElement="filePickerButton"
           className="row"
