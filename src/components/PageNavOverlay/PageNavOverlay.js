@@ -140,6 +140,7 @@ class PageNavOverlay extends React.PureComponent {
       >
         <Button
           className="side-arrow-container"
+          dataElement="prevPage"
           img="icon-chevron-left"
           title={isFirstPage ? null : t('action.pagePrev')} // Don't show tooltip on a disabled button
           ariaLabel={t('action.pagePrev')}
@@ -149,7 +150,7 @@ class PageNavOverlay extends React.PureComponent {
           disabled={isFirstPage}
         />
         <div className="formContainer" onClick={this.onClick}>
-          <form onSubmit={this.onSubmit} onBlur={this.onBlur} onFocus={this.onFocus}>
+          <form data-element="pageNavigation" onSubmit={this.onSubmit} onBlur={this.onBlur} onFocus={this.onFocus}>
             <input
               ref={this.textInput}
               type="text"
@@ -159,6 +160,7 @@ class PageNavOverlay extends React.PureComponent {
               disabled={!allowPageNavigation}
               style={{ width: inputWidth }}
               aria-label={t('action.pageSet')}
+              data-element="pageNavigationInput"
             />
             {this.state.isCustomPageLabels
               ? ` (${currentPage}/${totalPages})`
@@ -167,6 +169,7 @@ class PageNavOverlay extends React.PureComponent {
         </div>
         <Button
           className="side-arrow-container"
+          dataElement="nextPage"
           img="icon-chevron-right"
           title={isLastPage ? null : t('action.pageNext')}
           ariaLabel={t('action.pageNext')}

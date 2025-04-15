@@ -128,17 +128,20 @@ const BookmarksPanel = () => {
             }
             <button 
                 id="bookmarks-export-button"
+                data-element="exportBookmarksButton"
                 className="Button bookmark-outline-control-button header-edit-button" 
                 onClick={toggleDropdown} ref={dropdownBtnRef}>
                     {t('action.export')}
             </button>
             {isDropdownOpen && (
                 <div className="FlyoutMenu export-dropdown-menu" ref={dropdownRef}>
-                    <a id="bookmarks-export-excel" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.excel.tooltip.bookmarks')}>
-                        {t('option.exportOptions.excel.label')}
+                    <a id="bookmarks-export-excel" data-element="bookmarks-export-excel" className="export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.excel.tooltip.bookmarks')} title={t('option.exportOptions.excel.tooltip.bookmarks')}>
+                            {t('option.exportOptions.excel.label')}
                     </a>
-                    <a id="bookmarks-export-word" className="export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.word.tooltip.bookmarks')}>
-                        {t('option.exportOptions.word.label')}
+                    <a id="bookmarks-export-word" data-element="bookmarks-export-word" className="export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.word.tooltip.bookmarks')} title={t('option.exportOptions.word.tooltip.bookmarks')}>
+                            {t('option.exportOptions.word.label')}
                     </a>
                 </div>
             )}

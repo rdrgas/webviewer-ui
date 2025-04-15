@@ -428,17 +428,20 @@ const NotesPanel = ({ currentLeftPanelWidth }) => {
             <span className='main-comment'>{t('component.notesPanel')}</span> {`(${notesToRender.length})`}
             <button 
                 id="notes-export-button"
+                data-element="notesExportButton"
                 className="Button notes-export-button"
                 onClick={toggleDropdown} ref={dropdownBtnRef}>
                     {t('action.export')}
             </button>
             {isDropdownOpen && (
                 <div className="FlyoutMenu notes-export-dropdown-menu" ref={dropdownRef}>
-                    <a id="notes-export-excel" className="notes-export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.excel.tooltip.notes')}>
-                        {t('option.exportOptions.excel.label')}
+                    <a id="notes-export-excel" data-element="notes-export-excel" className="notes-export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.excel.tooltip.notes')} title={t('option.exportOptions.excel.tooltip.notes')}>
+                            {t('option.exportOptions.excel.label')}
                     </a>
-                    <a id="notes-export-word" className="notes-export-dropdown-item" onClick={handleOptionClick} title={t('option.exportOptions.word.tooltip.notes')}>
-                        {t('option.exportOptions.word.label')}
+                    <a id="notes-export-word" data-element="notes-export-word" className="notes-export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.word.tooltip.notes')} title={t('option.exportOptions.word.tooltip.notes')}>
+                            {t('option.exportOptions.word.label')}
                     </a>
                 </div>
             )}
