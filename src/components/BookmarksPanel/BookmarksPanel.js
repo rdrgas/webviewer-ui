@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 
@@ -60,6 +60,42 @@ const BookmarksPanel = () => {
   if (isDisabled) {
     return null;
   }
+  
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const dropdownBtnRef = useRef(null);
+  
+  const toggleDropdown = () => {
+    setDropdownOpen((prev) => {
+        const newState = !prev;
+        if (!newState && dropdownBtnRef.current) {
+            dropdownBtnRef.current.blur(); // Unfocus button when closing dropdown
+        }
+        return newState;
+    });
+  };
+  
+  const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+        dropdownBtnRef.current && !dropdownBtnRef.current.contains(event.target)) {
+        setDropdownOpen(false);
+    }
+  };
+    
+  const handleOptionClick = () => {
+    setDropdownOpen(false);
+    if (dropdownBtnRef.current) {
+        dropdownBtnRef.current.blur(); // Unfocus button when an option is clicked
+    }
+  };
+    
+  useEffect(() => {
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
+
 
   return (
     <div
@@ -70,25 +106,46 @@ const BookmarksPanel = () => {
         <div className="header-title">
           {t('component.bookmarksPanel')}
         </div>
-        {!isMultiSelectionMode &&
-          <Button
-            className="bookmark-outline-control-button header-edit-button"
-            label={t('action.edit')}
-            disabled={isAddingNewBookmark || pageIndexes.length === 0}
-            onClick={() => setMultiSelectionMode(true)}
-          />
-        }
-        {isMultiSelectionMode &&
-          <Button
-            className="bookmark-outline-control-button header-edit-button"
-            label={t('option.bookmarkOutlineControls.done')}
-            disabled={isAddingNewBookmark}
-            onClick={() => {
-              setMultiSelectionMode(false);
-              setSelectingBookmarks([]);
-            }}
-          />
-        }
+        <div style={{ display: 'inline-flex' }}>
+            {!isMultiSelectionMode &&
+            <Button
+                className="bookmark-outline-control-button header-edit-button"
+                label={t('action.edit')}
+                disabled={isAddingNewBookmark || pageIndexes.length === 0}
+                onClick={() => setMultiSelectionMode(true)}
+            />
+            }
+            {isMultiSelectionMode &&
+            <Button
+                className="bookmark-outline-control-button header-edit-button"
+                label={t('option.bookmarkOutlineControls.done')}
+                disabled={isAddingNewBookmark}
+                onClick={() => {
+                setMultiSelectionMode(false);
+                setSelectingBookmarks([]);
+                }}
+            />
+            }
+            <button 
+                id="bookmarks-export-button"
+                data-element="exportBookmarksButton"
+                className="Button bookmark-outline-control-button header-edit-button" 
+                onClick={toggleDropdown} ref={dropdownBtnRef}>
+                    {t('action.export')}
+            </button>
+            {isDropdownOpen && (
+                <div className="FlyoutMenu export-dropdown-menu" ref={dropdownRef}>
+                    <a id="bookmarks-export-excel" data-element="bookmarks-export-excel" className="export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.excel.tooltip.bookmarks')} title={t('option.exportOptions.excel.tooltip.bookmarks')}>
+                            {t('option.exportOptions.excel.label')}
+                    </a>
+                    <a id="bookmarks-export-word" data-element="bookmarks-export-word" className="export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.word.tooltip.bookmarks')} title={t('option.exportOptions.word.tooltip.bookmarks')}>
+                            {t('option.exportOptions.word.label')}
+                    </a>
+                </div>
+            )}
+        </div>
       </div>
 
       {!isAddingNewBookmark && pageIndexes.length === 0 && (
@@ -99,11 +156,11 @@ const BookmarksPanel = () => {
         {isAddingNewBookmark &&
           <Bookmark
             isAdding={true}
-            label={`${t('component.bookmarkPage')} ${pageLabels[currentPageIndex]} - ${t('component.bookmarkTitle')}`}
+            label={`${t('component.bookmarkPage')} ${pageLabels[currentPageIndex]}`}
             text={bookmarks[currentPageIndex] ?? ""}
             pageIndex={currentPageIndex}
             onSave={newText => {
-              dispatch(actions.addBookmark(currentPageIndex, newText));
+              dispatch(actions.addBookmark(currentPageIndex, new Date().getTime()));
               setAddingNewBookmark(false);
             }}
             onCancel={() => setAddingNewBookmark(false)}

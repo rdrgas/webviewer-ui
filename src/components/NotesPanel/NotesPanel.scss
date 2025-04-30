@@ -26,7 +26,7 @@
 }
 
 .comments-counter {
-  height: 19px;
+  height: 25px;
   margin-top: 24px;
   margin-bottom: 12px;
   font-size: 16px;
@@ -34,6 +34,11 @@
   span {
     font-weight: bold;
   }
+}
+
+.main-comment {
+  display: inline-block;
+  padding: var(--padding-tiny) 0;
 }
 
 .NotesPanel {
@@ -256,4 +261,37 @@
       }
     }
   }
+}
+
+.notes-export-button {
+    float: right;
+    padding: var(--padding-tiny) var(--padding-small);
+    width: auto;
+    
+    &:hover {
+        background-color: var(--view-header-button-hover);
+    }
+    
+    &:active,
+    &:focus {
+        background-color: var(--view-header-button-active);
+    }
+}
+
+.notes-export-dropdown-menu {
+  position: absolute;
+  top: 104px;
+  right: 26px;
+}
+
+.notes-export-dropdown-item {
+  font-size: 13px;
+  width: 100%;
+  padding: 8px 16px;
+  text-decoration: unset;
+  color: var(--text-color);
+}
+
+.notes-export-dropdown-item:hover {
+  background: #f0f0f0;
 }

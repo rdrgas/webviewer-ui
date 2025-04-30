@@ -19,6 +19,7 @@
     "ungroup": "Ungroup",
     "download": "Download",
     "edit": "Edit",
+    "export": "Export",
     "extract": "Extract",
     "enterFullscreen": "Full screen",
     "exitFullscreen": "Exit full screen",
@@ -175,6 +176,7 @@
     "searchOverlay": "Search",
     "searchPanel": "Search",
     "menuOverlay": "Menu",
+    "menuExport": "Export citations to ...",
     "notesPanel": "Comments",
     "outlinePanel": "Outline",
     "outlinesPanel": "Outlines",
@@ -529,6 +531,22 @@
     },
     "lineStyleOptions": {
       "title": "Style"
+    },
+    "exportOptions": {
+      "excel": {
+        "label": "Excel",
+        "tooltip": {
+          "bookmarks": "Export bookmarks in csv format",
+          "notes": "Export notes in csv format"
+        }
+      },
+      "word": {
+        "label": "Word",
+        "tooltip": {
+          "bookmarks": "Export bookmarks in docx format",
+          "notes": "Export notes in docx format"
+        }
+      }
     }
   },
   "warning": {

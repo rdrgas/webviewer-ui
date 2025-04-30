@@ -345,6 +345,41 @@ const NotesPanel = ({ currentLeftPanelWidth }) => {
       singleSelectedNoteIndex = notesToRender.findIndex(note => note.Id === existingSelectedNotes[0].Id);
     }
   }
+  
+  const [isDropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+  const dropdownBtnRef = useRef(null);
+        
+  const toggleDropdown = () => {
+      setDropdownOpen((prev) => {
+          const newState = !prev;
+          if (!newState && dropdownBtnRef.current) {
+              dropdownBtnRef.current.blur(); // Unfocus button when closing dropdown
+          }
+          return newState;
+      });
+  };
+        
+  const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target) &&
+          dropdownBtnRef.current && !dropdownBtnRef.current.contains(event.target)) {
+          setDropdownOpen(false);
+      }
+  };
+          
+  const handleOptionClick = () => {
+      setDropdownOpen(false);
+      if (dropdownBtnRef.current) {
+          dropdownBtnRef.current.blur(); // Unfocus button when an option is clicked
+      }
+  };
+          
+  useEffect(() => {
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+          document.removeEventListener('mousedown', handleClickOutside);
+      };
+  }, []);
 
   let style = {};
   if ((isInDesktopOnlyMode || !isMobile)) {
@@ -391,6 +426,25 @@ const NotesPanel = ({ currentLeftPanelWidth }) => {
           </div>
           <div className='comments-counter'>
             <span className='main-comment'>{t('component.notesPanel')}</span> {`(${notesToRender.length})`}
+            <button 
+                id="notes-export-button"
+                data-element="notesExportButton"
+                className="Button notes-export-button"
+                onClick={toggleDropdown} ref={dropdownBtnRef}>
+                    {t('action.export')}
+            </button>
+            {isDropdownOpen && (
+                <div className="FlyoutMenu notes-export-dropdown-menu" ref={dropdownRef}>
+                    <a id="notes-export-excel" data-element="notes-export-excel" className="notes-export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.excel.tooltip.notes')} title={t('option.exportOptions.excel.tooltip.notes')}>
+                            {t('option.exportOptions.excel.label')}
+                    </a>
+                    <a id="notes-export-word" data-element="notes-export-word" className="notes-export-dropdown-item" 
+                        onClick={handleOptionClick} aria-label={t('option.exportOptions.word.tooltip.notes')} title={t('option.exportOptions.word.tooltip.notes')}>
+                            {t('option.exportOptions.word.label')}
+                    </a>
+                </div>
+            )}
           </div>
           <div className="sort-row">
             {

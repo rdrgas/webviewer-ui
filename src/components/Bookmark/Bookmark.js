@@ -69,6 +69,11 @@ const Bookmark = ({
       setIsDefault(false);
     }
   }, [isEditing]);
+  
+  const formatDate = (date) => {
+    const month = date.toLocaleString('default', { month: 'short' });
+    return date.getUTCDate() + "-" + month + "-" + date.getFullYear();
+  }
 
   return (
     <DataElementWrapper
@@ -107,30 +112,6 @@ const Bookmark = ({
 
         {isDefault &&
           <>
-            {isMultiSelectionMode &&
-              <Button
-                className="bookmark-outline-more-button"
-                dataElement={`bookmark-more-button-${pageIndex}`}
-                img="icon-pencil-line"
-                onClick={e => {
-                  e.stopPropagation();
-                  setIsEditing(true);
-                }}
-                tabIndex={-1}
-              />
-            }
-            {!isMultiSelectionMode &&
-              <Button
-                className="bookmark-outline-more-button"
-                dataElement={`bookmark-more-button-${pageIndex}`}
-                img="icon-tool-more"
-                onClick={e => {
-                  e.stopPropagation();
-                  setContextMenuOpen(true);
-                }}
-                tabIndex={-1}
-              />
-            }
             {isContextMenuOpen && (
               <BookmarkOutlineContextMenuPopup
                 type={'bookmark'}
@@ -151,9 +132,8 @@ const Bookmark = ({
 
             <div
               className="bookmark-outline-text"
-              onDoubleClick={() => setIsEditing(true)}
             >
-              {text}
+              {formatDate(new Date(text))}
             </div>
           </>
         }
@@ -165,11 +145,9 @@ const Bookmark = ({
               name="bookmark"
               ref={inputRef}
               className="bookmark-outline-input"
-              placeholder={t('component.bookmarkTitle')}
               aria-label={t('action.name')}
-              value={bookmarkText}
-              onKeyDown={handleKeyDown}
-              onChange={e => setBookmarkText(e.target.value)}
+              value={formatDate(new Date())}
+              disabled={true}
             />
 
             <div className="bookmark-outline-editing-controls">
@@ -183,7 +161,10 @@ const Bookmark = ({
                   className="bookmark-outline-save-button"
                   label={t('action.add')}
                   isSubmitType={true}
-                  onClick={onSaveBookmark}
+                  onClick={() => {
+                    setBookmarkText(new Date().getTime());
+                    onSaveBookmark();
+                  }}
                 />
               }
               {isEditing &&
